@@ -2,36 +2,45 @@ const CREATE_POST = 'CREATE_POST'
 const DELETE_POST = 'DELETE_POST'
 const UPDATE_POST = 'UPDATE_POST'
 const VOTE_POST = 'VOTE_POST'
+const GET_POSTS = 'GET_POST'
+
+
+export function getPosts (posts) {
+  return {
+    type: GET_POSTS,
+    posts
+  }
+}
 
 export function createPost (post) {
   return {
     type: CREATE_POST,
-    ...post
+    post
   }
 }
 
-export function updatePost ({ postID, title, body }) {
+export function updatePost ({ id, title, body }) {
   return {
     type: UPDATE_POST,
-    id:postID,
+    id,
     title,
     body
   }
 }
 
 
-export function votePost ({ postID, vote }) {
+export function votePost ({ id, vote }) {
   return {
     type: VOTE_POST,
     option: vote,
-    id:postID
+    id
   }
 }
 
-export function deletePost ({ postID }) {
+export function deletePost ({ id }) {
   return {
     type: DELETE_POST,
-    postID
+    id
   }
 }
 

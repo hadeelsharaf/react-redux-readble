@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 
 import {
   CREATE_POST, DELETE_POST, UPDATE_POST,
-  VOTE_POST
+  VOTE_POST, GET_POSTS
 } from '../actions/posts'
 
 
@@ -11,14 +11,49 @@ import {
   VOTE_COMMENT
 } from '../actions/comments'
 
+
+// posts state
+function post (state = {}, action) {
+  const { post } = action
+  let updated_post = {
+        ...state,
+        [post.id]: post
+      }
+  switch (action.type) {
+    case GET_POSTS:
+      return { ...state, posts}
+    case CREATE_POST :
+    case UPDATE_POST :
+    case VOTE_POST :
+      return updated_post
+    case DELETE_POST :
+      return {
+        ...state,
+        [post.id]: null
+      }
+    default :
+      return state
+  }
+}
+
+
+// comments state
 function commnet (state = {}, action) {
+  const { comment } = action
+  let updated_comment = {
+        ...state,
+        [comment.id]: comment
+      }
   switch (action.type) {
     case CREATE_COMMENT :
-      const { comment } = action
-
+    case UPDATE_COMMENT :
+    case VOTE_COMMENT :
+      return updated_comment
+      break;
+    case DELETE_COMMENT :
       return {
         ...state,
-        [recipe.label]: recipe,
+        [comment.id]: null
       }
     default :
       return state
@@ -26,32 +61,8 @@ function commnet (state = {}, action) {
 }
 
 
-function calendar (state = {}, action) {
-  const { day, recipe, meal } = action
-
-  switch (action.type) {
-    case ADD_RECIPE :
-      return {
-        ...state,
-        [day]: {
-          ...state[day],
-          [meal]: recipe.label,
-        }
-      }
-    case REMOVE_FROM_CALENDAR :
-      return {
-        ...state,
-        [day]: {
-          ...state[day],
-          [meal]: null,
-        }
-      }
-    default :
-      return state
-  }
-}
 
 export default combineReducers({
-  food,
-  calendar,
+  post,
+  comment,
 })
