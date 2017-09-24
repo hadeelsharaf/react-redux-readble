@@ -5,15 +5,13 @@ class PostsList extends Component {
 	render(){
 		return(
 			<div class='posts-lists'>
-			<Post post={{}} />
+			{this.props.posts.map(post => (
+				<Post post={post.id} />
+				))
+			}
 			</div>
 		)
 	}
 }
-/*
-{this.props.posts.map(post => (
-				<Post post={post.id} />
-				))
-			}
-*/
+
 export default PostsList

@@ -8,8 +8,8 @@ import PostsList from '../components/postslist'
 class App extends Component {
 
   componentDidMount() {
-    // this.props.getCategories()
-    this.props.getPosts()
+    let posts =getPosts()
+    this.setState({posts});
   }
 
   render() {

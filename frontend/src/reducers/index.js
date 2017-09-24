@@ -13,10 +13,10 @@ import {
 
 
 // posts state
-function post (state = {}, action) {
+function posts (state = {}, action) {
   let updated_post = {
         ...state,
-        [post.id]: action.data
+        [posts.id]: action.data
       }
   switch (action.type) {
     case GET_POSTS:
@@ -28,7 +28,7 @@ function post (state = {}, action) {
     case DELETE_POST :
       return {
         ...state,
-        [post.id]: null
+        [posts.id]: null
       }
     default :
       return state
@@ -37,10 +37,10 @@ function post (state = {}, action) {
 
 
 // comments state
-function comment (state = {}, action) {
+function comments (state = {}, action) {
   let updated_comment = {
         ...state,
-        [comment.id]: action.data
+        [comments.id]: action.data
       }
   switch (action.type) {
     case CREATE_COMMENT :
@@ -50,7 +50,7 @@ function comment (state = {}, action) {
     case DELETE_COMMENT :
       return {
         ...state,
-        [comment.id]: null
+        [comments.id]: null
       }
     default :
       return state
@@ -60,6 +60,6 @@ function comment (state = {}, action) {
 
 
 export default combineReducers({
-  post,
-  comment,
+  posts,
+  comments,
 })
