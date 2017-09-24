@@ -14,14 +14,13 @@ import {
 
 // posts state
 function post (state = {}, action) {
-  const { post } = action.data
   let updated_post = {
         ...state,
-        [post.id]: post
+        [post.id]: action.data
       }
   switch (action.type) {
     case GET_POSTS:
-      return { ...state, posts}
+      return { ...state, posts: action.data}
     case CREATE_POST :
     case UPDATE_POST :
     case VOTE_POST :
@@ -38,18 +37,16 @@ function post (state = {}, action) {
 
 
 // comments state
-function commnet (state = {}, action) {
-  const { comment } = action.data
+function comment (state = {}, action) {
   let updated_comment = {
         ...state,
-        [comment.id]: comment
+        [comment.id]: action.data
       }
   switch (action.type) {
     case CREATE_COMMENT :
     case UPDATE_COMMENT :
     case VOTE_COMMENT :
       return updated_comment
-      break;
     case DELETE_COMMENT :
       return {
         ...state,

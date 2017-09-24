@@ -1,10 +1,10 @@
-const CREATE_COMMENT = 'CREATE_COMMENT'
-const DELETE_COMMENT = 'DELETE_COMMENT'
-const UPDATE_COMMENT = 'UPDATE_COMMENT'
-const VOTE_COMMENT = 'VOTE_COMMENT'
-const GET_COMMENTS = 'GET_COMMENTS'
+export const CREATE_COMMENT = 'CREATE_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const UPDATE_COMMENT = 'UPDATE_COMMENT'
+export const VOTE_COMMENT = 'VOTE_COMMENT'
+export const GET_COMMENTS = 'GET_COMMENTS'
 
-export function getComments (posts) {
+export function getComments (comments) {
   return {
     type: GET_COMMENTS,
     comments
@@ -29,7 +29,7 @@ export function updateComment ({ title, body }) {
 export function voteComment ({ commentID, vote }) {
   return {
     type: VOTE_COMMENT,
-    option: vote
+    option: vote,
     id: commentID
   }
 }

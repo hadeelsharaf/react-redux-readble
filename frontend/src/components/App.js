@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import logo from '../css/logo.svg';
 import '../css/App.css';
+import { connect } from 'react-redux'
+import { getPosts } from '../actions/posts'
+import PostsList from '../components/postslist'
 
 class App extends Component {
-  state = {
-    books:null,
-    categories:null,
-    comments:null
+
+  componentDidMount() {
+    // this.props.getCategories()
+    this.props.getPosts()
   }
 
   render() {
@@ -19,6 +22,7 @@ class App extends Component {
         <p className="App-intro">
           A content and comment web app.
         </p>
+        <PostsList posts = {this.props.posts}/>
         <div className="Post">
           fggsfsds
         </div>
@@ -31,21 +35,22 @@ class App extends Component {
   }
 }
 
-export default App;
-// function mapStateToProps ({ books, categories, comments }) {
-//   normalize categoties if needed
-//   return { books, categories, comments }
+//export default App;
+function mapStateToProps ({ posts, categories, comments }) {
+  //normalize categoties if needed
+  return { posts, categories, comments }
 
-// }
+}
 
-// function mapDispatchToProps (dispatch) {
-//   return {
-//     selectRecipe: (data) => dispatch(addRecipe(data)),
-//     remove: (data) => dispatch(removeFromCalendar(data))
-//   }
-// }
+const mapDispatchToProps = (dispatch,ownProps) => {
+  return {
+    //getCategories : () => dispatch(getCategories()),
+    getPosts: () => dispatch(getPosts()),
+    //changeSort: (sortBy) => dispatch({type:'SORT_BY_SOMETHING', payload: sortBy})
+  }
+}
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(App)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
