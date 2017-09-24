@@ -14,7 +14,7 @@ import {
 
 // posts state
 function post (state = {}, action) {
-  const { post } = action
+  const { post } = action.data
   let updated_post = {
         ...state,
         [post.id]: post
@@ -39,7 +39,7 @@ function post (state = {}, action) {
 
 // comments state
 function commnet (state = {}, action) {
-  const { comment } = action
+  const { comment } = action.data
   let updated_comment = {
         ...state,
         [comment.id]: comment

@@ -5,42 +5,39 @@ const VOTE_POST = 'VOTE_POST'
 const GET_POSTS = 'GET_POST'
 
 
-export function getPosts (posts) {
+export function getPosts (data) {
   return {
     type: GET_POSTS,
-    posts
+    data
   }
 }
 
-export function createPost (post) {
+export function createPost (data) {
   return {
     type: CREATE_POST,
-    post
+    data
   }
 }
 
-export function updatePost ({ id, title, body }) {
+export function updatePost (data) {
   return {
     type: UPDATE_POST,
-    id,
-    title,
-    body
+    data
   }
 }
 
 
-export function votePost ({ id, vote }) {
+export function votePost (data) {
   return {
     type: VOTE_POST,
-    option: vote,
-    id
+    data
   }
 }
 
-export function deletePost ({ id }) {
+export function deletePost (data) {
   return {
     type: DELETE_POST,
-    id
+    data
   }
 }
 
