@@ -7,9 +7,16 @@ import PostsList from '../components/postslist'
 
 class App extends Component {
 
+  state = {
+    loadingPosts:true
+  }
+
   componentDidMount() {
-    let posts =getPosts()
-    this.setState({posts});
+    // this.props.getCategories()
+    this.props.getPosts().then(
+      posts => this.setState({posts})
+      )
+
   }
 
   render() {
@@ -22,7 +29,7 @@ class App extends Component {
         <p className="App-intro">
           A content and comment web app.
         </p>
-        <PostsList posts = {this.props.posts}/>
+        <PostsList/>
         <div className="Post">
           fggsfsds
         </div>
