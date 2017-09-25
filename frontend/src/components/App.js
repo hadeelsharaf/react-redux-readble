@@ -13,9 +13,7 @@ class App extends Component {
 
   componentWillMount() {
     // this.props.getCategories()
-    this.props.getPosts().then(
-      posts => this.setState({loadedPosts:true})
-      )
+    this.props.getPosts()
   }
 
   render() {
