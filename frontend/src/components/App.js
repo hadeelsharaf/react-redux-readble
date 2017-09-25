@@ -8,15 +8,14 @@ import PostsList from '../components/postslist'
 class App extends Component {
 
   state = {
-    loadingPosts:true
+    loadedPosts:false
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // this.props.getCategories()
     this.props.getPosts().then(
-      posts => this.setState({posts})
+      posts => this.setState({loadedPosts:true})
       )
-
   }
 
   render() {
@@ -27,15 +26,9 @@ class App extends Component {
           <h2>React-Redux</h2>
         </div>
         <p className="App-intro">
-          A content and comment web app.
+          A content and comment web app. {this.props.posts.length}
         </p>
-        <PostsList/>
-        <div className="Post">
-          fggsfsds
-        </div>
-        <div className="Comment">
-          fggsfsds
-        </div>
+         <PostsList/>
 
       </div>
     );
