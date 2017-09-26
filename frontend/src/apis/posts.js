@@ -14,17 +14,15 @@ const headers = {
 export const getAllPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
-	.then(data => data.posts)
+	.then(data => data)
 
 export const getPost = (postId) =>
   fetch(`${api}/posts/${postId}`, { headers })
     .then(res => res.json())
-    .then(data => data.post)
 
 export const getPostComments = (postId) =>
   fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(res => res.json())
-    .then(data => data.post) 
 
 
 export const createPost = (post) =>

@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 
 import {
   CREATE_POST, DELETE_POST, UPDATE_POST,
-  VOTE_POST, GET_POSTS
+  VOTE_POST, GET_POSTS, GET_POST_COMMENTS
 } from '../actions/posts'
 
 
@@ -13,15 +13,16 @@ import {
 
 
 // posts state
-function post (state = {}, action) {
-  const { post } = action
+function posts (state = {}, action) {
   let updated_post = {
         ...state,
-        [post.id]: post
+        [posts.id]: action.data
       }
   switch (action.type) {
+    case GET_POST_COMMENTS:
+      return { ...state, postComments:action.data}
     case GET_POSTS:
-      return { ...state, posts}
+      return { ...state, allPosts:action.data}
     case CREATE_POST :
     case UPDATE_POST :
     case VOTE_POST :
@@ -29,7 +30,7 @@ function post (state = {}, action) {
     case DELETE_POST :
       return {
         ...state,
-        [post.id]: null
+        [posts.allPosts.id]: null
       }
     default :
       return state
@@ -38,22 +39,20 @@ function post (state = {}, action) {
 
 
 // comments state
-function commnet (state = {}, action) {
-  const { comment } = action
+function comments (state = {}, action) {
   let updated_comment = {
         ...state,
-        [comment.id]: comment
+        [comments.id]: action.data
       }
   switch (action.type) {
     case CREATE_COMMENT :
     case UPDATE_COMMENT :
     case VOTE_COMMENT :
       return updated_comment
-      break;
     case DELETE_COMMENT :
       return {
         ...state,
-        [comment.id]: null
+        [comments.id]: null
       }
     default :
       return state
@@ -63,6 +62,6 @@ function commnet (state = {}, action) {
 
 
 export default combineReducers({
-  post,
-  comment,
+  posts,
+  comments,
 })

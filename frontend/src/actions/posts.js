@@ -1,46 +1,73 @@
-const CREATE_POST = 'CREATE_POST'
-const DELETE_POST = 'DELETE_POST'
-const UPDATE_POST = 'UPDATE_POST'
-const VOTE_POST = 'VOTE_POST'
-const GET_POSTS = 'GET_POST'
+import { getAllPosts, getPost, getPostComments } from '../apis/posts'
 
+export const GET_POST = 'GET_POST'
+export const CREATE_POST = 'CREATE_POST'
+export const DELETE_POST = 'DELETE_POST'
+export const UPDATE_POST = 'UPDATE_POST'
+export const VOTE_POST = 'VOTE_POST'
+export const GET_POSTS = 'GET_POSTS'
+export const GET_POST_COMMENTS = 'GET_POST_COMMENTS'
 
-export function getPosts (posts) {
-  return {
-    type: GET_POSTS,
-    posts
+export function getPostById(id) {
+  return function (dispatch) {
+    return getPost(id)
+      .then(result => {
+        dispatch({type:GET_POST, data: result});
+        return result
+      })
   }
 }
 
-export function createPost (post) {
-  return {
-    type: CREATE_POST,
-    post
-  }
-}
-
-export function updatePost ({ id, title, body }) {
-  return {
-    type: UPDATE_POST,
-    id,
-    title,
-    body
+export function getPostAllComments(id) {
+  return function (dispatch) {
+    return getPostComments(id)
+      .then(result => {
+        dispatch({type:GET_POST_COMMENTS, data: result});
+        return result
+      })
   }
 }
 
 
-export function votePost ({ id, vote }) {
-  return {
-    type: VOTE_POST,
-    option: vote,
-    id
+export function getPosts() {
+  return function (dispatch) {
+    return getAllPosts()
+      .then(result => {
+        dispatch({type:GET_POSTS, data: result});
+        return result
+      })
   }
 }
 
-export function deletePost ({ id }) {
-  return {
-    type: DELETE_POST,
-    id
+export function createPost (data) {
+  return function (dispatch) {
+    return createPost(data)
+      .then(result => {
+        dispatch({type:CREATE_POST, data: result});
+        return result
+      })
   }
 }
+
+// export function updatePost (data) {
+//   return {
+//     type: UPDATE_POST,
+//     data
+//   }
+// }
+
+
+// export function votePost (data) {
+//   return {
+//     type: VOTE_POST,
+//     data
+//   }
+// }
+
+// export function deletePost (data) {
+//   return {
+//     type: DELETE_POST,
+//     data
+//   }
+// }
 
