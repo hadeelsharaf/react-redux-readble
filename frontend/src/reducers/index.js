@@ -18,9 +18,13 @@ function posts (state = {}, action) {
         ...state,
         [posts.id]: action.data
       }
+
+  var updated_state = state.allPosts.map((item, index) => {
+    if (item.id === action.data.id)
+    {item=action.data;}
+    return item;
+  });
   switch (action.type) {
-    case GET_POST_COMMENTS:
-      return { ...state, postComments:action.data}
     case GET_POSTS:
       return { ...state, allPosts:action.data}
     case CREATE_POST :
@@ -44,7 +48,10 @@ function comments (state = {}, action) {
         ...state,
         [comments.id]: action.data
       }
+
   switch (action.type) {
+    case GET_POST_COMMENTS:
+      return { ...state, [action.id]:action.data}
     case CREATE_COMMENT :
     case UPDATE_COMMENT :
     case VOTE_COMMENT :

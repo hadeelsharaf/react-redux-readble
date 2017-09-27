@@ -22,7 +22,7 @@ export function getPostAllComments(id) {
   return function (dispatch) {
     return getPostComments(id)
       .then(result => {
-        dispatch({type:GET_POST_COMMENTS, data: result});
+        dispatch({type:GET_POST_COMMENTS, data: result, id});
         return result
       })
   }
