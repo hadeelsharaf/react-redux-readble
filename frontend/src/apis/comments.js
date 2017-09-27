@@ -57,5 +57,5 @@ export const voteComment = (commentId, vote) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ vote })
+    body: JSON.stringify({ option:vote })
   }).then(res => res.json())

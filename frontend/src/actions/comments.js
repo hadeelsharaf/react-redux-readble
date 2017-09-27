@@ -25,14 +25,26 @@ export function updateComment ({ title, body }) {
   }
 }
 
-
-export function voteComment ({ commentID, vote }) {
-  return {
-    type: VOTE_COMMENT,
-    option: vote,
-    id: commentID
+export function upVote(id) {
+  return function (dispatch) {
+    return votePost(id, "upVote")
+      .then(result => {
+        dispatch({type:VOTE_COMMENT, data: result, postId: result.parentID});
+        return result
+      })
   }
 }
+
+export function downVote(id) {
+  return function (dispatch) {
+    return votePost(id, "downVote")
+      .then(result => {
+        dispatch({type:VOTE_COMMENT, data: result, postId: result.parentID});
+        return result
+      })
+  }
+}
+
 
 export function deleteComment ({ commentID }) {
   return {

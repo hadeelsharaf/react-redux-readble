@@ -1,4 +1,4 @@
-import { getAllPosts, getPost, getPostComments } from '../apis/posts'
+import { getAllPosts, getPost, getPostComments, votePost } from '../apis/posts'
 
 export const GET_POST = 'GET_POST'
 export const CREATE_POST = 'CREATE_POST'
@@ -39,6 +39,34 @@ export function getPosts() {
   }
 }
 
+export function upVote(postId) {
+  return function (dispatch) {
+    return votePost(postId, "upVote")
+      .then(result => {
+        dispatch({type:VOTE_POST, data: result});
+        return result
+      })
+  }
+}
+
+export function downVote(postId) {
+  return function (dispatch) {
+    return votePost(postId, "downVote")
+      .then(result => {
+        dispatch({type:VOTE_POST, data: result});
+        return result
+      })
+  }
+}
+
+// export function votePost (data) {
+//   return {
+//     type: VOTE_POST,
+//     data
+//   }
+// }
+
+
 export function createPost (data) {
   return function (dispatch) {
     return createPost(data)
@@ -57,12 +85,7 @@ export function createPost (data) {
 // }
 
 
-// export function votePost (data) {
-//   return {
-//     type: VOTE_POST,
-//     data
-//   }
-// }
+
 
 // export function deletePost (data) {
 //   return {
