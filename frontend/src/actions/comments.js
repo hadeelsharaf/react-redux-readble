@@ -1,3 +1,5 @@
+import { voteComment, deleteComment, createComment } from "../apis/comments";
+
 export const CREATE_COMMENT = 'CREATE_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const UPDATE_COMMENT = 'UPDATE_COMMENT'
@@ -10,12 +12,23 @@ export function getComments (comments) {
     comments
   }
 }
-export function createComment (comment) {
-  return {
-    type: CREATE_COMMENT,
-    ...comment
+// export function createComment (comment) {
+//   return {
+//     type: CREATE_COMMENT,
+//     ...comment
+//   }
+// }
+
+export function addComment(comment) {
+  return function (dispatch) {
+    return createComment(comment)
+      .then(result => {
+        dispatch({type:CREATE_COMMENT, data: result, postId: result.parentId});
+        return comment
+      })
   }
 }
+
 
 export function updateComment ({ title, body }) {
   return {
@@ -27,9 +40,9 @@ export function updateComment ({ title, body }) {
 
 export function upVote(id) {
   return function (dispatch) {
-    return votePost(id, "upVote")
+    return voteComment(id, "upVote")
       .then(result => {
-        dispatch({type:VOTE_COMMENT, data: result, postId: result.parentID});
+        dispatch({type:VOTE_COMMENT, data: result, postId: result.parentId});
         return result
       })
   }
@@ -37,19 +50,23 @@ export function upVote(id) {
 
 export function downVote(id) {
   return function (dispatch) {
-    return votePost(id, "downVote")
+    return voteComment(id, "downVote")
       .then(result => {
-        dispatch({type:VOTE_COMMENT, data: result, postId: result.parentID});
+        dispatch({type:VOTE_COMMENT, data: result, postId: result.parentId});
         return result
       })
   }
 }
 
 
-export function deleteComment ({ commentID }) {
-  return {
-    type: DELETE_COMMENT,
-    commentID
+export function deleteCommentById(postId,id) {
+  return function (dispatch) {
+    return deleteComment(id)
+      .then(result => {
+        dispatch({type:DELETE_COMMENT, id, postId});
+        return result
+      })
   }
 }
+
 

@@ -28,7 +28,7 @@ export const createComment = (comment) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ comment })
+    body: JSON.stringify(comment)
   }).then(res => res.json())
 
 export const updateComment = (commentId, comment) =>

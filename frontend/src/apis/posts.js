@@ -32,7 +32,7 @@ export const createPost = (post) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ post })
+    body: JSON.stringify(post)
   }).then(res => res.json())
 
 export const updatePost = (postId, post) =>

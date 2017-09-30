@@ -1,4 +1,4 @@
-export function NewId()
+export function newId()
 {
 	var sGuid="";
 	for (var i=0; i<32; i++)

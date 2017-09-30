@@ -23,15 +23,20 @@ const initialState = {
     allPosts: []
 }
 
-// posts state
-function posts(state = initialState, action) {
-
-    let updated_posts = state.allPosts.map((item, index) => {
+function update_state_posts(state,action){
+      let updated_posts = state.allPosts.map((item, index) => {
         if (item.id === action.data.id) {
             item = action.data;
         }
         return item;
     });
+    return updated_posts;
+}
+
+// posts state
+function posts(state = initialState, action) {
+
+
     switch (action.type) {
         case GET_POSTS:
             return {...state,
@@ -44,7 +49,7 @@ function posts(state = initialState, action) {
         case UPDATE_POST:
         case VOTE_POST:
             return {...state,
-                allPosts: updated_posts
+                allPosts: update_state_posts(state,action)
             }
         case DELETE_POST:
             return {
@@ -56,27 +61,43 @@ function posts(state = initialState, action) {
     }
 }
 
+function update_state_comment(state,action){
+  console.log(state)
+  let parentId = action.postId
+  console.log(action)
+  let updated_comments = state[parentId].map((item, index) => {
+      if (item.id === action.data.id) {
+          item = action.data;
+      }
+      return item;
+  });
+  return updated_comments
+}
+
 
 // comments state
 function comments(state = {}, action) {
-    let updated_comment = {
-        ...state,
-        [comments.id]: action.data
-    }
-
+    
     switch (action.type) {
         case GET_POST_COMMENTS:
             return {...state,
                 [action.id]: action.data
             }
         case CREATE_COMMENT:
+          return {
+                ...state,
+                [action.postId]: state[action.postId].concat([action.data])
+            }
         case UPDATE_COMMENT:
         case VOTE_COMMENT:
-            return updated_comment
+            return {
+                ...state,
+                [action.postId]: update_state_comment(state,action)
+            }
         case DELETE_COMMENT:
             return {
                 ...state,
-                [comments.id]: null
+                [action.postId]: state[action.postId].filter(comment => comment.id !== action.id)
             }
         default:
             return state
