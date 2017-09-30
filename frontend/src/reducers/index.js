@@ -19,8 +19,11 @@ import {
     VOTE_COMMENT
 } from '../actions/comments'
 
+import {GET_CATEGORIES, GET_CATEGORY_POSTS} from "../actions/categories";
+
 const initialState = {
-    allPosts: []
+    allPosts: [],
+    categoryPosts:[]
 }
 
 function update_state_posts(state,action){
@@ -41,6 +44,11 @@ function posts(state = initialState, action) {
         case GET_POSTS:
             return {...state,
                 allPosts: action.data
+            }
+        case GET_CATEGORY_POSTS:
+            console.log(action)
+            return {...state,
+                categoryPosts: action.data
             }
         case CREATE_POST:
             return {...state,
@@ -104,9 +112,17 @@ function comments(state = {}, action) {
     }
 }
 
-
+function categories (state = [], action){
+  switch (action.type) {
+    case GET_CATEGORIES:
+        return action.data
+    default:
+      return state
+    }
+}
 
 export default combineReducers({
     posts,
     comments,
+    categories
 })

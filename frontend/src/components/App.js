@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { connect } from 'react-redux'
 import { getPosts } from '../actions/posts'
 import PostsList from '../components/postslist'
+import CategoriesList from '../components/categories'
+import { BrowserRouter as Router,Route } from 'react-router-dom'
 
 class App extends Component {
 
@@ -20,9 +21,19 @@ class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider>
-         <PostsList/>
-      </MuiThemeProvider>
+      <Router>
+        <div>
+        <Route exact path='/' render={() => (
+          <div>
+            <CategoriesList />
+            <PostsList/>
+          </div>
+        )}/>
+        <Route path='/:category' component={PostsList}/>
+        </div>
+      </Router>
+     
+      
     );
   }
 }
