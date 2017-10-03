@@ -14,7 +14,8 @@ import {
 import {
     getPostAllComments,
     upVote,
-    downVote
+    downVote,
+    deletePostById
 } from '../actions/posts'
 import {addComment} from "../actions/comments";
 
@@ -76,6 +77,9 @@ class Post extends Component {
       this.props.downVote()
     }
 
+    deleteClick = () =>{
+        this.props.delete()
+    }
     showCommentModal = () => {
         this.setState({...this.state,
             modalIsOpen: true})
@@ -129,7 +133,8 @@ class Post extends Component {
             < FlatButton label = "comment" 
               onClick={this.showCommentModal} / >
             < FlatButton label = "edit" / >
-            < FlatButton label = "delete" secondary={true}/ >
+            < FlatButton label = "delete" onClick= {this.deleteClick}
+              secondary={true}/ >
             < /CardActions> 
             </Card> 
             <Dialog
@@ -165,10 +170,11 @@ class Post extends Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        getPostAllComments: (id) => dispatch(getPostAllComments(ownProps.post.id)),
+        getPostAllComments: () => dispatch(getPostAllComments(ownProps.post.id)),
         upVote: () => dispatch(upVote(ownProps.post.id)),
         downVote: () => dispatch(downVote(ownProps.post.id)),
         comment: (commentData) =>  dispatch(addComment(commentData)),
+        delete: () => dispatch(deletePostById(ownProps.post.id))
     }
 }
 

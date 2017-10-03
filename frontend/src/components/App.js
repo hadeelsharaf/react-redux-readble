@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import { getPosts } from '../actions/posts'
 import PostsList from '../components/postslist'
-import Post from '../components/post'
 import FullPost from "../components/expandedPost";
 import CategoriesList from '../components/categories'
 import { BrowserRouter as Router,Route } from 'react-router-dom'
@@ -45,9 +44,7 @@ function mapStateToProps ({ posts, categories, comments }) {
 
 const mapDispatchToProps = (dispatch,ownProps) => {
   return {
-    //getCategories : () => dispatch(getCategories()),
     getPosts: () => dispatch(getPosts()),
-    //changeSort: (sortBy) => dispatch({type:'SORT_BY_SOMETHING', payload: sortBy})
   }
 }
 

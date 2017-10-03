@@ -1,4 +1,4 @@
-import { getAllPosts, getPost, getPostComments, votePost } from '../apis/posts'
+import { getAllPosts, getPost, getPostComments, votePost,deletePost } from '../apis/posts'
 
 export const GET_POST = 'GET_POST'
 export const CREATE_POST = 'CREATE_POST'
@@ -58,14 +58,22 @@ export function downVote(postId) {
       })
   }
 }
+export function deletePostById(postId) {
+  return function (dispatch) {
+    return deletePost(postId)
+      .then(result => {
+        dispatch({type:DELETE_POST, data: result});
+        return result
+      })
+  }
+}
 
-// export function votePost (data) {
+// export function deletePost (data) {
 //   return {
-//     type: VOTE_POST,
+//     type: DELETE_POST,
 //     data
 //   }
 // }
-
 
 export function createPost (data) {
   return function (dispatch) {
@@ -87,10 +95,5 @@ export function createPost (data) {
 
 
 
-// export function deletePost (data) {
-//   return {
-//     type: DELETE_POST,
-//     data
-//   }
-// }
+
 

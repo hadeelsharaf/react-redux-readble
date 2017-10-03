@@ -70,7 +70,7 @@ function posts(state = initialState, action) {
         case DELETE_POST:
             return {
                 ...state,
-                [posts.allPosts.id]: null
+                allPosts: state.allPosts.filter(post => post.id !== action.data.id)
             }
         default:
             return state
