@@ -14,7 +14,8 @@ import {
 import {
     getPostAllComments,
     upVote,
-    downVote
+    downVote,
+    getPostById,
 } from '../actions/posts'
 import {addComment} from "../actions/comments";
 
@@ -23,6 +24,8 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import serializeForm from 'form-serialize'
 import {newId} from "../utils/helper";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom';
 
 const customContentStyle = {
@@ -30,13 +33,18 @@ const customContentStyle = {
   maxHeight : '95% !important'
 };
 
-class Post extends Component {
+
+
+class FullPost extends Component {
 
     componentWillMount() {
-        this.props.getPostAllComments()
-        
+        if (this.props.match && this.props.match.params.post_id)
+            this.props.getPostById(this.props.match.params.post_id).then(
+                data =>{
+                    this.props.getPostAllComments(data.id)
+                })
     }
-
+    
     state = {
         modalIsOpen : false
     }
@@ -69,11 +77,11 @@ class Post extends Component {
 
 
     upVoteClick = () => {
-      this.props.upVote()
+      this.props.upVote(this.props.post.id)
     }
 
     downVoteClick = () => {
-      this.props.downVote()
+      this.props.downVote(this.props.post.id)
     }
 
     showCommentModal = () => {
@@ -93,26 +101,29 @@ class Post extends Component {
             primary={true}
           />,
         ];
+        let link = <Link to="/" />
         let postComments = this.props.comments[this.props.post.id]
         return ( 
-          <div >
+          <MuiThemeProvider>
+          <div>
+            <RaisedButton 
+                label="Home"
+                containerElement={ link } >
+            </RaisedButton>
+            <br />
             <Card>
             <CardHeader title = { this.props.post.title }
             subtitle = { 
-                this.props.post.author +' - '+ new Date(this.props.post.timestamp).toISOString()
+                this.props.post.author +' - '+ this.props.post.timestamp
             }
-            actAsExpander = { true }
-            showExpandableButton = { true }
             /> 
-            < CardText expandable = { true } >
+            < CardText >
             < p > In category: { this.props.post.category } - 
             comments: ({ postComments && postComments.length }) < /p> 
             <p>score:({this.props.post.voteScore})</p>
             <p > {
-                this.props.post.body}
-                <br />
-                <Link to={`${this.props.post.category}/${this.props.post.id}`}> more ...</Link>
-             < /p> {
+                this.props.post.body
+            } < /p> {
                 postComments && postComments.map(postcomment =>
                     <
                     Comment comment = {
@@ -121,7 +132,7 @@ class Post extends Component {
                     />
                 )
             } </CardText>
-            < CardActions expandable = { true } >
+            < CardActions expandable = { true && !this.props.match} >
             < FlatButton label = "upvote" primary={true}
               onClick={this.upVoteClick} / >
             < FlatButton label = "downvote" primary={true}
@@ -157,29 +168,33 @@ class Post extends Component {
               </form>
             </Dialog>
             </div>
+            </MuiThemeProvider>
 
 
         )
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        getPostAllComments: (id) => dispatch(getPostAllComments(ownProps.post.id)),
-        upVote: () => dispatch(upVote(ownProps.post.id)),
-        downVote: () => dispatch(downVote(ownProps.post.id)),
+        getPostAllComments: (id) => dispatch(getPostAllComments(id)),
+        upVote: (id) => dispatch(upVote(id)),
+        downVote: (id) => dispatch(downVote(id)),
         comment: (commentData) =>  dispatch(addComment(commentData)),
+        getPostById: (id) => dispatch(getPostById(id))
     }
 }
 
 function mapStateToProps({
     posts,
+    post,
     comments
 }) {
     return {
         posts,
+        post,
         comments
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default connect(mapStateToProps, mapDispatchToProps)(FullPost)

@@ -7,6 +7,7 @@ import {
     DELETE_POST,
     UPDATE_POST,
     VOTE_POST,
+    GET_POST,
     GET_POSTS,
     GET_POST_COMMENTS
 } from '../actions/posts'
@@ -22,8 +23,7 @@ import {
 import {GET_CATEGORIES, GET_CATEGORY_POSTS} from "../actions/categories";
 
 const initialState = {
-    allPosts: [],
-    categoryPosts:[]
+    allPosts: []
 }
 
 function update_state_posts(state,action){
@@ -36,6 +36,15 @@ function update_state_posts(state,action){
     return updated_posts;
 }
 
+function post(state={},action){
+    switch (action.type) {
+        case GET_POST:
+            return action.data
+        default:
+            return state
+    }
+}
+
 // posts state
 function posts(state = initialState, action) {
 
@@ -46,7 +55,6 @@ function posts(state = initialState, action) {
                 allPosts: action.data
             }
         case GET_CATEGORY_POSTS:
-            console.log(action)
             return {...state,
                 categoryPosts: action.data
             }
@@ -123,6 +131,7 @@ function categories (state = [], action){
 
 export default combineReducers({
     posts,
+    post,
     comments,
     categories
 })

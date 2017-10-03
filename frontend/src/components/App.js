@@ -2,20 +2,17 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import { getPosts } from '../actions/posts'
 import PostsList from '../components/postslist'
+import Post from '../components/post'
+import FullPost from "../components/expandedPost";
 import CategoriesList from '../components/categories'
 import { BrowserRouter as Router,Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 
 class App extends Component {
 
-  state = {
-    loadedPosts:false
-  }
-
   componentDidMount() {
-    // this.props.getCategories()
-    this.props.getPosts().then(
-      posts => this.setState({loadedPosts:true})
-      )
+    this.props.getPosts()
 
   }
 
@@ -26,10 +23,12 @@ class App extends Component {
         <Route exact path='/' render={() => (
           <div>
             <CategoriesList />
+            <Link to='new'> new </Link>
             <PostsList/>
           </div>
         )}/>
-        <Route path='/:category' component={PostsList}/>
+        <Route exact path='/:category' component={PostsList}/>
+        <Route path='/:category/:post_id' component={FullPost}/>
         </div>
       </Router>
      
