@@ -7,7 +7,6 @@ import {
     CardHeader,
     CardText
 } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
 import {
     connect
 } from 'react-redux'
@@ -15,7 +14,6 @@ import {
     createNewPost
 } from '../actions/posts'
 
-import TextField from 'material-ui/TextField';
 import serializeForm from 'form-serialize'
 import {
     getCategories
@@ -23,10 +21,14 @@ import {
 import {
     newId
 } from "../utils/helper";
+import { Link } from 'react-router-dom'
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Snackbar from 'material-ui/Snackbar';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 class NewPost extends Component {
@@ -86,9 +88,14 @@ class NewPost extends Component {
                         }
                         />)
                     }) 
-
+                let link = <Link to="/" />
                 return ( < MuiThemeProvider >
                     < div >
+                    <RaisedButton 
+                        label="Home"
+                        containerElement={ link } >
+                    </RaisedButton>
+                    <br />
                     < Card >
                     < CardHeader title = 'Add New Post' />
                     < CardText >

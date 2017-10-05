@@ -29,10 +29,10 @@ class App extends Component {
             <PostsList/>
           </div>
         )}/>
-        <Route exact path='/:category' component={PostsList}/>
         <Route exact path='/new' component={NewPost}/>
-        <Route exact path='/:category/:post_id' component={FullPost}/>
         <Route exact path='/:category/:post_id/edit' component={EditPost} />
+        <Route exact path='/:category/:post_id' component={FullPost}/>
+        <Route exact path='/:category' component={PostsList}/>
         </div>
       </Router>
      
