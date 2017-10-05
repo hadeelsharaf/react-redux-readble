@@ -1,3 +1,4 @@
+import sortBy from 'sort-by'
 import {
     combineReducers
 } from 'redux'
@@ -9,7 +10,8 @@ import {
     VOTE_POST,
     GET_POST,
     GET_POSTS,
-    GET_POST_COMMENTS
+    GET_POST_COMMENTS,
+    SORT_POSTS
 } from '../actions/posts'
 
 
@@ -66,6 +68,11 @@ function posts(state = initialState, action) {
         case VOTE_POST:
             return {...state,
                 allPosts: update_state_posts(state,action)
+            }
+        case SORT_POSTS:
+            let sorted= state.allPosts.sort(sortBy(action.sort_by))
+            return {...state,
+                allPosts: sorted
             }
         case DELETE_POST:
             return {

@@ -6,6 +6,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const VOTE_POST = 'VOTE_POST'
 export const GET_POSTS = 'GET_POSTS'
+export const SORT_POSTS = 'SORT_POSTS'
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS'
 
 export function getPostById(id) {
@@ -90,8 +91,8 @@ export function editPost (id,data) {
 }
 
 
-
-
-
-
-
+export function sortPosts(sort_by) {
+  return function (dispatch) {
+    dispatch({type:SORT_POSTS, sort_by});
+  }
+}

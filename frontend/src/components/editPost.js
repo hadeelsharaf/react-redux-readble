@@ -18,11 +18,6 @@ import {
 
 import TextField from 'material-ui/TextField';
 import serializeForm from 'form-serialize'
-import {
-    newId
-} from "../utils/helper";
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Snackbar from 'material-ui/Snackbar';
 

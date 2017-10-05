@@ -6,7 +6,7 @@ import FullPost from "../components/expandedPost";
 import NewPost from "../components/new";
 import EditPost from "../components/editPost";
 
-import CategoriesList from '../components/categories'
+import CategoriesList from '../components/header'
 import { BrowserRouter as Router,Route } from 'react-router-dom'
 
 

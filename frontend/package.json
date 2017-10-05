@@ -17,7 +17,8 @@
     "redux": "^3.7.2",
     "redux-throttle": "^0.1.1",
     "redux-thunk": "^2.2.0",
-    "riek": "^1.1.0"
+    "riek": "^1.1.0",
+    "sort-by": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
