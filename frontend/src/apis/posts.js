@@ -34,6 +34,7 @@ export const createPost = (post) =>
     },
     body: JSON.stringify(post)
   }).then(res => res.json())
+  .then(data => data)
 
 export const updatePost = (postId, post) =>
   fetch(`${api}/posts/${postId}`, {
@@ -42,7 +43,7 @@ export const updatePost = (postId, post) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ post })
+    body: JSON.stringify(post)
   }).then(res => res.json())
 
 export const deletePost = (postId) =>

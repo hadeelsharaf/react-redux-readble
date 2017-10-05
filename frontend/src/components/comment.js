@@ -14,8 +14,10 @@ import {
 import {
     upVote,
     downVote,
+    editComment,
     deleteCommentById
 } from '../actions/comments'
+import { RIETextArea } from 'riek';
 
 
 
@@ -32,6 +34,10 @@ class Comment extends Component {
 
     deleteClick = () => {
         this.props.delete()
+    }
+
+    handleEdit = (data) => {
+        this.props.edit(data)
     }
 
     render() {
@@ -59,12 +65,16 @@ class Comment extends Component {
             <
             p > score: ({
                 this.props.comment.voteScore
-            }) < /p> <
-            p > {
-                this.props.comment.body
-            } < /p> <
-            /CardText> <
-            CardActions expandable = {
+            }) < /p> 
+            <RIETextArea
+              value={
+                    this.props.comment.body
+                }
+              change={this.handleEdit}
+              propName="body"/>
+
+            < /CardText> 
+            < CardActions expandable = {
                 true
             } >
             <
@@ -73,8 +83,7 @@ class Comment extends Component {
             <
             FlatButton label="downvote" primary={true}
               onClick={this.downVoteClick}/ >
-            <
-            FlatButton label = "edit" / >
+
             <
             FlatButton label = "delete" secondary={true}
                 onClick={this.deleteClick}
@@ -92,6 +101,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         upVote: () => dispatch(upVote(ownProps.comment.id)),
         downVote: () => dispatch(downVote(ownProps.comment.id)),
         delete: () => dispatch(deleteCommentById(ownProps.comment.parentId,ownProps.comment.id)),
+        edit: (data) => dispatch(editComment(ownProps.comment.id,data))
     }
 }
 

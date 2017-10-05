@@ -1,4 +1,4 @@
-import { voteComment, deleteComment, createComment } from "../apis/comments";
+import { voteComment, deleteComment, createComment, updateComment } from "../apis/comments";
 
 export const CREATE_COMMENT = 'CREATE_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
@@ -12,12 +12,7 @@ export function getComments (comments) {
     comments
   }
 }
-// export function createComment (comment) {
-//   return {
-//     type: CREATE_COMMENT,
-//     ...comment
-//   }
-// }
+
 
 export function addComment(comment) {
   return function (dispatch) {
@@ -29,14 +24,16 @@ export function addComment(comment) {
   }
 }
 
-
-export function updateComment ({ title, body }) {
-  return {
-    type: UPDATE_COMMENT,
-    title,
-    body
+export function editComment(id,comment) {
+  return function (dispatch) {
+    return updateComment(id,comment)
+      .then(result => {
+        dispatch({type:UPDATE_COMMENT, data: result, postId: result.parentId});
+        return result
+      })
   }
 }
+
 
 export function upVote(id) {
   return function (dispatch) {

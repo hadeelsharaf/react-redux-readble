@@ -17,17 +17,26 @@ class CategoriesList extends Component {
   }
 
   render() {
+    let newLink =<Link to='new'> new </Link>
     return (
       <MuiThemeProvider>
       <div>
           {this.props.categories && this.props.categories.map(category => {
             let link = <Link to={category.path}/>
             return(<RaisedButton style={style}
+            key={category.path}
             label={category.path}
             containerElement={ link } >
             </RaisedButton>)
         })
       }
+
+      <RaisedButton style={style}
+        label='new Post'
+        containerElement={ newLink } 
+        secondary={true}>
+      </RaisedButton>
+
       </div>
       </MuiThemeProvider>
     );

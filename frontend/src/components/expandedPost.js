@@ -15,7 +15,7 @@ import {
     getPostAllComments,
     upVote,
     downVote,
-    getPostById,
+    getPostById
 } from '../actions/posts'
 import {addComment} from "../actions/comments";
 
@@ -28,6 +28,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom';
 
+
 const customContentStyle = {
   hieght: '80%',
   maxHeight : '95% !important'
@@ -37,7 +38,7 @@ const customContentStyle = {
 
 class FullPost extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.match && this.props.match.params.post_id)
             this.props.getPostById(this.props.match.params.post_id).then(
                 data =>{
@@ -56,7 +57,6 @@ class FullPost extends Component {
             modalIsOpen: false
         });
     }
-
     submitComment = (e) =>{
         e.preventDefault()
         let data = serializeForm(e.target, { hash: true })
@@ -103,6 +103,7 @@ class FullPost extends Component {
         ];
         let link = <Link to="/" />
         let postComments = this.props.comments[this.props.post.id]
+        let editLink = <Link to={`/${this.props.post.category}/${this.props.post.id}/edit`}/>
         return ( 
           <MuiThemeProvider>
           <div>
@@ -123,7 +124,10 @@ class FullPost extends Component {
             <p>score:({this.props.post.voteScore})</p>
             <p > {
                 this.props.post.body
-            } < /p> {
+            }
+            <br/>
+            < FlatButton label = "edit" containerElement={ editLink }/ >
+            < /p> {
                 postComments && postComments.map(postcomment =>
                     <
                     Comment comment = {
@@ -139,7 +143,6 @@ class FullPost extends Component {
               onClick={this.downVoteClick} / >
             < FlatButton label = "comment" 
               onClick={this.showCommentModal} / >
-            < FlatButton label = "edit" / >
             < FlatButton label = "delete" secondary={true}/ >
             < /CardActions> 
             </Card> 
@@ -181,7 +184,8 @@ const mapDispatchToProps = (dispatch) => {
         upVote: (id) => dispatch(upVote(id)),
         downVote: (id) => dispatch(downVote(id)),
         comment: (commentData) =>  dispatch(addComment(commentData)),
-        getPostById: (id) => dispatch(getPostById(id))
+        getPostById: (id) => dispatch(getPostById(id)),
+        
     }
 }
 

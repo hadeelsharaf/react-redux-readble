@@ -98,6 +98,8 @@ class Post extends Component {
           />,
         ];
         let postComments = this.props.comments[this.props.post.id]
+        let editLink = <Link to={`${this.props.post.category}/${this.props.post.id}/edit`}/>
+        let moreLink = <Link to={`${this.props.post.category}/${this.props.post.id}`}/>
         return ( 
           <div >
             <Card>
@@ -115,7 +117,8 @@ class Post extends Component {
             <p > {
                 this.props.post.body}
                 <br />
-                <Link to={`${this.props.post.category}/${this.props.post.id}`}> more ...</Link>
+                < FlatButton label = "more .." containerElement={ moreLink }/ >
+                < FlatButton label = "edit" containerElement={ editLink }/ >
              < /p> {
                 postComments && postComments.map(postcomment =>
                     <
@@ -132,7 +135,7 @@ class Post extends Component {
               onClick={this.downVoteClick} / >
             < FlatButton label = "comment" 
               onClick={this.showCommentModal} / >
-            < FlatButton label = "edit" / >
+
             < FlatButton label = "delete" onClick= {this.deleteClick}
               secondary={true}/ >
             < /CardActions> 

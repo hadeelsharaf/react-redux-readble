@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import { getPosts } from '../actions/posts'
 import PostsList from '../components/postslist'
 import FullPost from "../components/expandedPost";
+import NewPost from "../components/new";
+import EditPost from "../components/editPost";
+
 import CategoriesList from '../components/categories'
 import { BrowserRouter as Router,Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+
 
 
 class App extends Component {
@@ -16,18 +19,20 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <Router>
         <div>
         <Route exact path='/' render={() => (
           <div>
             <CategoriesList />
-            <Link to='new'> new </Link>
             <PostsList/>
           </div>
         )}/>
         <Route exact path='/:category' component={PostsList}/>
-        <Route path='/:category/:post_id' component={FullPost}/>
+        <Route exact path='/new' component={NewPost}/>
+        <Route exact path='/:category/:post_id' component={FullPost}/>
+        <Route exact path='/:category/:post_id/edit' component={EditPost} />
         </div>
       </Router>
      

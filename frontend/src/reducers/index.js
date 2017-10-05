@@ -60,7 +60,7 @@ function posts(state = initialState, action) {
             }
         case CREATE_POST:
             return {...state,
-                allPosts: state.allposts.concat([action.data])
+                allPosts: state.allPosts.concat([action.data])
             }
         case UPDATE_POST:
         case VOTE_POST:

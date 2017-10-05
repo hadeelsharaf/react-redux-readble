@@ -1,4 +1,4 @@
-import { getAllPosts, getPost, getPostComments, votePost,deletePost } from '../apis/posts'
+import { getAllPosts, getPost, getPostComments, votePost,deletePost,createPost, updatePost } from '../apis/posts'
 
 export const GET_POST = 'GET_POST'
 export const CREATE_POST = 'CREATE_POST'
@@ -68,14 +68,7 @@ export function deletePostById(postId) {
   }
 }
 
-// export function deletePost (data) {
-//   return {
-//     type: DELETE_POST,
-//     data
-//   }
-// }
-
-export function createPost (data) {
+export function createNewPost (data) {
   return function (dispatch) {
     return createPost(data)
       .then(result => {
@@ -85,12 +78,17 @@ export function createPost (data) {
   }
 }
 
-// export function updatePost (data) {
-//   return {
-//     type: UPDATE_POST,
-//     data
-//   }
-// }
+
+export function editPost (id,data) {
+  return function (dispatch) {
+    return updatePost(id,data)
+      .then(result => {
+        dispatch({type:UPDATE_POST, data: result});
+        return result
+      })
+  }
+}
+
 
 
 
