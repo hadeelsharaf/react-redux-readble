@@ -31,9 +31,9 @@ class PostsList extends Component {
             <br/>
 			{this.props.posts.allPosts && this.props.posts.allPosts.map(post => {
 				if(!category)
-					return(<Post post={post} />)
+					return(<Post post={post} key={post.id} />)
 				else if(category && post.category===category)
-					return(<Post post={post} />)
+					return(<Post post={post} key={post.id} />)
 				})
 			}
 			</div>

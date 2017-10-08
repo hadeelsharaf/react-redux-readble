@@ -15,7 +15,8 @@ import {
     getPostAllComments,
     upVote,
     downVote,
-    getPostById
+    getPostById,
+    deletePostById
 } from '../actions/posts'
 import {addComment} from "../actions/comments";
 
@@ -26,6 +27,7 @@ import serializeForm from 'form-serialize'
 import {newId} from "../utils/helper";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
 import { Link } from 'react-router-dom';
 
 
@@ -47,7 +49,8 @@ class FullPost extends Component {
     }
     
     state = {
-        modalIsOpen : false
+        modalIsOpen : false,
+        openSnack: false
     }
 
     closeModal = (e) => {
@@ -84,11 +87,27 @@ class FullPost extends Component {
       this.props.downVote(this.props.post.id)
     }
 
+    deleteClick = () =>{
+        this.props.delete(this.props.post.id).then(
+            ()=>{
+                this.setState({...this.state,
+                    openSnack: true
+                })
+            })
+    }
+
     showCommentModal = () => {
         this.setState({...this.state,
             modalIsOpen: true})
     }
 
+    handleRequestClose = () => {
+        this.setState({
+            ...this.state,
+            openSnack: false,
+        });
+      };
+    
     render() {
         const modalActions = [
           <FlatButton
@@ -125,9 +144,9 @@ class FullPost extends Component {
             <p > {
                 this.props.post.body
             }
-            <br/>
+            < /p>
             < FlatButton label = "edit" containerElement={ editLink }/ >
-            < /p> {
+             {
                 postComments && postComments.map(postcomment =>
                     <
                     Comment comment = {
@@ -143,7 +162,8 @@ class FullPost extends Component {
               onClick={this.downVoteClick} / >
             < FlatButton label = "comment" 
               onClick={this.showCommentModal} / >
-            < FlatButton label = "delete" secondary={true}/ >
+            < FlatButton label = "delete" secondary={true}
+              onClick={this.deleteClick}/ >
             < /CardActions> 
             </Card> 
             <Dialog
@@ -170,6 +190,12 @@ class FullPost extends Component {
                 </div>
               </form>
             </Dialog>
+            <Snackbar
+          open={this.state.openSnack}
+          message="Post Removed return to Home"
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
             </div>
             </MuiThemeProvider>
 
@@ -185,6 +211,7 @@ const mapDispatchToProps = (dispatch) => {
         downVote: (id) => dispatch(downVote(id)),
         comment: (commentData) =>  dispatch(addComment(commentData)),
         getPostById: (id) => dispatch(getPostById(id)),
+        delete: (id) => dispatch(deletePostById(id))
         
     }
 }

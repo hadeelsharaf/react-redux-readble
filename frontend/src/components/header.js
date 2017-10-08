@@ -33,7 +33,7 @@ class CategoriesList extends Component {
                         primaryText = 'category'/>,
                      <MenuItem value = 'timestamp'
                         primaryText = 'date'/>,
-                      <MenuItem value = 'score'
+                      <MenuItem value = 'voteScore'
                         primaryText = 'score'/>,
                       <MenuItem value = 'title'
                         primaryText = 'title'/>,

@@ -114,17 +114,15 @@ class Post extends Component {
             < p > In category: { this.props.post.category } - 
             comments: ({ postComments && postComments.length }) < /p> 
             <p>score:({this.props.post.voteScore})</p>
-            <p > {
-                this.props.post.body}
-                <br />
+            <p > { this.props.post.body }
+            < /p>
                 < FlatButton label = "more .." containerElement={ moreLink }/ >
                 < FlatButton label = "edit" containerElement={ editLink }/ >
-             < /p> {
+              {
                 postComments && postComments.map(postcomment =>
                     <
-                    Comment comment = {
-                        postcomment
-                    }
+                    Comment comment = { postcomment }
+                    key={postcomment.id}
                     />
                 )
             } </CardText>

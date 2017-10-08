@@ -71,7 +71,7 @@ function posts(state = initialState, action) {
             }
         case SORT_POSTS:
             let sorted= state.allPosts.sort(sortBy(action.sort_by))
-            return {...state,
+            return {
                 allPosts: sorted
             }
         case DELETE_POST:

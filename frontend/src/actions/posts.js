@@ -93,6 +93,6 @@ export function editPost (id,data) {
 
 export function sortPosts(sort_by) {
   return function (dispatch) {
-    dispatch({type:SORT_POSTS, sort_by});
+    dispatch({type:SORT_POSTS, sort_by:sort_by});
   }
 }
