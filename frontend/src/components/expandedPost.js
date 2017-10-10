@@ -121,16 +121,11 @@ class FullPost extends Component {
           />,
         ];
         let link = <Link to="/" />
-        let postComments = this.props.comments[this.props.post.id]
+        let postComments =this.props.post.id !== undefined ?this.props.comments[this.props.post.id]:[]
         let editLink = <Link to={`/${this.props.post.category}/${this.props.post.id}/edit`}/>
-        return ( 
-          <MuiThemeProvider>
+        let noPostDom = <div> Post does not exist</div>
+        let postDom = (          
           <div>
-            <RaisedButton 
-                label="Home"
-                containerElement={ link } >
-            </RaisedButton>
-            <br />
             <Card>
             <CardHeader title = { this.props.post.title }
             subtitle = { 
@@ -195,12 +190,19 @@ class FullPost extends Component {
           message="Post Removed return to Home"
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
-        />
-            </div>
-            </MuiThemeProvider>
-
-
+        />        
+        </div>
         )
+        return(<MuiThemeProvider>
+        <div>
+        <RaisedButton 
+            label="Home"
+            containerElement={ link } >
+        </RaisedButton>
+        <br />
+         {this.props.post.id !== undefined? postDom: noPostDom}
+         </div>
+         </MuiThemeProvider> )
     }
 }
 

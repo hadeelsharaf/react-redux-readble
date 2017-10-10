@@ -38,14 +38,7 @@ function update_state_posts(state,action){
     return updated_posts;
 }
 
-function post(state={},action){
-    switch (action.type) {
-        case GET_POST:
-            return action.data
-        default:
-            return state
-    }
-}
+
 
 // posts state
 function posts(state = initialState, action) {
@@ -126,6 +119,20 @@ function comments(state = {}, action) {
             return state
     }
 }
+
+function post(state={},action){
+    switch (action.type) {
+        case GET_POST:
+        case UPDATE_POST:
+        case VOTE_POST:
+            return action.data
+        case DELETE_POST:
+            return null
+        default:
+            return state
+    }
+}
+
 
 function categories (state = [], action){
   switch (action.type) {
