@@ -127,7 +127,7 @@ function post(state={},action){
         case VOTE_POST:
             return action.data
         case DELETE_POST:
-            return null
+            return {}
         default:
             return state
     }
