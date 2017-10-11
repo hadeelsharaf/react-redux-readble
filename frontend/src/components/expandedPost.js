@@ -113,11 +113,13 @@ class FullPost extends Component {
           <FlatButton
             label="Cancel"
             onClick={this.closeModal}
+            key="closeModal"
           />,
           <FlatButton
             label="Submit"
             type="submit"
             primary={true}
+            key="submit"
           />,
         ];
         let link = <Link to="/" />
@@ -147,6 +149,7 @@ class FullPost extends Component {
                     Comment comment = {
                         postcomment
                     }
+                    key={postcomment.id}
                     />
                 )
             } </CardText>

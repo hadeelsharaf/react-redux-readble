@@ -8,6 +8,9 @@ import {
     CardText
 } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
+import TextField from 'material-ui/TextField';
+import serializeForm from 'form-serialize'
 import {
     connect
 } from 'react-redux'
@@ -20,8 +23,17 @@ import {
 import { RIETextArea } from 'riek';
 
 
+const customContentStyle = {
+  hieght: '80%',
+  maxHeight : '95% !important'
+};
+
 
 class Comment extends Component {
+
+    state = {
+        modalIsOpen: false
+    }
 
 
     upVoteClick = () => {
@@ -40,7 +52,41 @@ class Comment extends Component {
         this.props.edit(data)
     }
 
+    showModal = () => {
+        this.setState({
+            modalIsOpen: true 
+        });
+    }
+
+    submitComment = (e) =>{
+        e.preventDefault()
+        let data = serializeForm(e.target, { hash: true })
+
+        let commentData = {
+            ...data,
+            parentId:this.props.comment.parentId,
+        }
+        this.props.edit(commentData).then(() => 
+            this.setState({
+            modalIsOpen: false
+        })
+        )
+    }
+
     render() {
+        const modalActions = [
+          <FlatButton
+            label="Cancel"
+            onClick={this.closeModal}
+            key="CancelEdit"
+          />,
+          <FlatButton
+            label="Submit"
+            type="submit"
+            primary={true}
+            key="submitEdit"
+          />,
+        ];
         return ( <
             div >
             <
@@ -85,13 +131,37 @@ class Comment extends Component {
               onClick={this.downVoteClick}/ >
 
             <
+            FlatButton label="edit" 
+              onClick={this.showModal}/ >
+
+            <
             FlatButton label = "delete" secondary={true}
                 onClick={this.deleteClick}
             / >
             <
             /CardActions> <
-            /Card> <
-            /div>
+            /Card> 
+            <Dialog
+              title="edit Comment"
+              open={this.state.modalIsOpen}
+              contentStyle={customContentStyle}
+
+            >
+              <form onSubmit={this.submitComment}>
+                <TextField
+                  hintText="Your Comment .. "
+                  name = "body"
+                  multiLine={true}
+                  rows={2}
+                  rowsMax={4}
+                  defaultValue={this.props.comment.body}
+                />
+                <div>
+                {modalActions}
+                </div>
+              </form>
+            </Dialog>
+            </div>
         )
     }
 }
