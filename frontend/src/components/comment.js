@@ -58,6 +58,14 @@ class Comment extends Component {
         });
     }
 
+    closeModal = (e) => {
+        e.preventDefault()
+        this.setState({
+            ...this.state,
+            modalIsOpen: false
+        });
+    }
+
     submitComment = (e) =>{
         e.preventDefault()
         let data = serializeForm(e.target, { hash: true })
