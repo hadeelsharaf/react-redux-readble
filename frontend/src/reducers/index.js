@@ -78,9 +78,7 @@ function posts(state = initialState, action) {
 }
 
 function update_state_comment(state,action){
-  console.log(state)
   let parentId = action.postId
-  console.log(action)
   let updated_comments = state[parentId].map((item, index) => {
       if (item.id === action.data.id) {
           item = action.data;
